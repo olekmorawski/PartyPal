@@ -1,6 +1,6 @@
 # PartyPal - Your Event Companion App
 
-![PartyPal Logo](/styles/images/logo.png) <!-- If you have a logo, replace with the actual logo link -->
+![PartyPal Logo](/styles/images/logo_white_letters.png) <!-- If you have a logo, replace with the actual logo link -->
 
 Welcome to PartyPal, your ultimate companion for events and gatherings! 🎉 Whether you're looking for someone to join you at a concert, a movie night, or a sports game, PartyPal has got you covered. Say goodbye to attending events alone and hello to creating lasting memories with like-minded people!
 
