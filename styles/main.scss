@@ -6,6 +6,7 @@ html,
 body {
   font-size: 16px;
   position: relative;
+  text-align: center;
 }
 
 * {
@@ -41,8 +42,9 @@ h2 {
   color: rgb(48, 48, 48);
   border: solid 2px rgb(48, 48, 48);
 }
-body {
-  text-align: center;
+.title_primary {
+  font-size: 90px;
+  color: white;
 }
 
 /*----- Navbar ------*/
@@ -85,9 +87,15 @@ nav {
     rgba(0, 0, 0, 0) 100%
   );
 }
+.home {
+  margin-top: 30vh;
+}
 /*----- Auth modal ------*/
 .auth_modal {
-  top: 175px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100px;
   margin-left: auto;
   margin-right: auto;
   max-width: 360px;

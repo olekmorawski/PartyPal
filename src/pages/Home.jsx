@@ -4,11 +4,14 @@ import { useState } from "react";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
+
   const authToken = false;
 
   const handleClick = () => {
     console.log("clicked");
     setShowModal(true);
+    setIsSignUp(true);
   };
 
   return (
@@ -19,14 +22,17 @@ const Home = () => {
           authToken={authToken}
           setShowModal={setShowModal}
           showModal={showModal}
+          setIsSignUp={setIsSignUp}
         />
         <div className="home">
-          <h1>Have a Party!</h1>
+          <h1 className="title_primary">Have a Party!</h1>
           <button className="btn-primary" onClick={handleClick}>
             {authToken ? "Singout" : "Create Account"}
           </button>
 
-          {showModal && <AuthModal setShowModal={setShowModal} />}
+          {showModal && (
+            <AuthModal setShowModal={setShowModal} isSignUp={isSignUp} />
+          )}
         </div>
       </div>
     </>
