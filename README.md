@@ -1,6 +1,6 @@
 # PartyPal - Your Event Companion App
 
-![PartyPal Logo](/styles/images/logo_white_letters.png) <!-- If you have a logo, replace with the actual logo link -->
+![PartyPal Logo](/styles/images/logo_white_letters.png) 
 
 Welcome to PartyPal, your ultimate companion for events and gatherings! 🎉 Whether you're looking for someone to join you at a concert, a movie night, or a sports game, PartyPal has got you covered. Say goodbye to attending events alone and hello to creating lasting memories with like-minded people!
 
@@ -34,7 +34,6 @@ PartyPal is built using a range of modern technologies, ensuring a smooth and en
 - [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
 - [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
-- (Add other technologies here if applicable)
 
 ## Getting Started
 
@@ -42,14 +41,14 @@ Follow these steps to get PartyPal up and running on your local machine:
 
 ### Installation
 
-1. Clone this repository: `git clone https://github.com/your-username/party-pal.git`
+1. Clone this repository: `git clone https://github.com/olekmorawski/party-pal`
 2. Navigate to the project directory: `cd party-pal`
 3. Install dependencies: `npm install`
 
 ### Usage
 
 1. Start the development server: `npm run dev`
-2. Open your web browser and go to: `http://localhost:3000`
+2. Open your web browser and go to: `http://localhost:XXXX` provided by Vite
 
 Feel free to explore the app's functionality and features. If you encounter any issues or have suggestions, don't hesitate to [report them](link-to-issue-tracker) on our issue tracker.
 
