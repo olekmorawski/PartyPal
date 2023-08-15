@@ -32,10 +32,10 @@ PartyPal is a revolutionary app that connects people who share similar interests
 
 PartyPal is built using a range of modern technologies, ensuring a smooth and enjoyable user experience. Some of the key technologies used in this project are:
 
-- [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
-- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
-- [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
-- [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
+- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/35px-React-icon.svg.png" alt="React Logo"> [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" height="35"> [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
+- <img src="https://sass-lang.com/assets/img/logos/logo.svg" alt="SASS Logo" height="35"> [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
+- <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png" alt="MongoDB Logo" height="35"> [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
 
 ## Libraries
 
@@ -43,6 +43,7 @@ PartyPal utilizes the following libraries to enhance its functionality:
 
 - [react-tinder-card](https://github.com/3DJakob/react-tinder-card) - A swipeable card component for React.
 - [react-spring/web](https://github.com/pmndrs/react-spring) - A library for animating UI components in React.
+- [normalize.css](https://github.com/necolas/normalize.css) - Makes browsers render all elements more consistently and in line with modern standards.
 
 ## Getting Started
 
