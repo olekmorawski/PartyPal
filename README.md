@@ -32,10 +32,10 @@ PartyPal is a revolutionary app that connects people who share similar interests
 
 PartyPal is built using a range of modern technologies, ensuring a smooth and enjoyable user experience. Some of the key technologies used in this project are:
 
-- ![React Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png) [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
-- ![Vite Logo](https://vitejs.dev/logo.svg) [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
-- ![SASS Logo](https://sass-lang.com/assets/img/styleguide/color-1c4aab2b.png) [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
-- ![MongoDB Logo](https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png) [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
+- [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
+- [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
 
 ## Libraries
 
