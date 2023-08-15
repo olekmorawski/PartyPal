@@ -1,6 +1,6 @@
 # PartyPal - Your Event Companion App
 
-![PartyPal Logo](/styles/images/logo_white_letters.png) 
+![PartyPal Logo](/styles/images/logo_white_letters.png)
 
 Welcome to PartyPal, your ultimate companion for events and gatherings! 🎉 Whether you're looking for someone to join you at a concert, a movie night, or a sports game, PartyPal has got you covered. Say goodbye to attending events alone and hello to creating lasting memories with like-minded people!
 
@@ -9,6 +9,7 @@ Welcome to PartyPal, your ultimate companion for events and gatherings! 🎉 Whe
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies](#technologies)
+- [Libraries](#libraries)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -34,6 +35,14 @@ PartyPal is built using a range of modern technologies, ensuring a smooth and en
 - [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
 - [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
+- [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
+
+## Libraries
+
+PartyPal utilizes the following libraries to enhance its functionality:
+
+- [react-tinder-card](https://github.com/3DJakob/react-tinder-card) - A swipeable card component for React.
+- [react-spring/web](https://github.com/pmndrs/react-spring) - A library for animating UI components in React.
 
 ## Getting Started
 
