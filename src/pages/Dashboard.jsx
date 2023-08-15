@@ -2,7 +2,12 @@ import { useState } from "react";
 import TinderCard from "react-tinder-card";
 
 const Dashboard = () => {
-  const characters = db;
+  const characters = [
+    {
+      name: "Olek Morawski",
+      url: "./img/image.jpg",
+    },
+  ];
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction, nameToDelete) => {
@@ -16,7 +21,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <ChatContainer />
+      {/* <ChatContainer /> */}
       <div className="swiper_container">
         <div className="card_container">
           {characters.map((character) => (
