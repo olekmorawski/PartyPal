@@ -120,6 +120,7 @@ nav {
 }
 /*----- Onboarding ------*/
 .onboarding {
+  border-top: solid 1px gray;
   form {
     display: flex;
     justify-content: center;
@@ -158,17 +159,25 @@ nav {
         margin-right: 10px;
       }
     }
+    .photo_container img {
+      width: 100%;
+    }
     input[type="radio"] {
       display: none;
+      &:checked + label {
+        border: solid 2px rgb(221, 39, 22);
+      }
     }
-    input[type="radio"]:checked + label {
-      border: solid 2px rgb(221, 39, 22);
+    input[type="submit"] {
+      &:hover {
+        background-color: rgb(235, 235, 235);
+      }
+      &:active {
+        background-color: rgb(226, 115, 155);
+      }
     }
-    input[type="submit"]:hover {
-      background-color: rgb(235, 235, 235);
-    }
-    input[type="submit"]:active {
-      background-color: rgb(226, 115, 155);
+    input[type="number"] {
+      width: 10%;
     }
   }
 }

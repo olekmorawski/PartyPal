@@ -2,11 +2,35 @@ import { useState } from "react";
 import Nav from "../components/Nav";
 
 const Onboarding = () => {
+  const [formData, setFormData] = useState({
+    user_id: "",
+    first_name: "",
+    dob_day: "",
+    dob_month: "",
+    dob_year: "",
+    show_sex: false,
+    sex: "man",
+    sex_interest: "woman",
+    email: "",
+    url: "",
+    about: "",
+    matches: [],
+  });
+
   const handleSubmit = () => {
     console.log("submited");
   };
-  const handleChange = () => {
-    console.log("changed");
+  const handleChange = (e) => {
+    console.log(e);
+    const value =
+      e.target.value === "checkbox" ? e.target.checked : e.target.value;
+    const name = e.target.name;
+    console.log("value" + value, "name" + name);
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
   return (
     <>
@@ -22,7 +46,7 @@ const Onboarding = () => {
               id="first_name"
               placeholder="First name"
               required={true}
-              value={""}
+              value={formData.first_name}
               onChange={handleChange}
             />
             <label>Birthday</label>
@@ -33,7 +57,7 @@ const Onboarding = () => {
                 id="bod_day"
                 placeholder="DD"
                 required={true}
-                value={""}
+                value={formData.dob_day}
                 onChange={handleChange}
               />
               <input
@@ -42,7 +66,7 @@ const Onboarding = () => {
                 id="bod_month"
                 placeholder="MM"
                 required={true}
-                value={""}
+                value={formData.dob_month}
                 onChange={handleChange}
               />
               <input
@@ -51,7 +75,7 @@ const Onboarding = () => {
                 id="bod_year"
                 placeholder="YYYY"
                 required={true}
-                value={""}
+                value={formData.dob_year}
                 onChange={handleChange}
               />
             </div>
@@ -63,7 +87,7 @@ const Onboarding = () => {
                 id="man_sex"
                 value="man"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.sex === "man"}
               />
               <label htmlFor="man_sex">Man</label>
               <input
@@ -72,7 +96,7 @@ const Onboarding = () => {
                 id="woman_sex"
                 value="woman"
                 onChange={handleChange}
-                checked={true}
+                checked={formData.sex === "woman"}
               />
               <label htmlFor="woman_sex">Woman</label>
               <input
@@ -81,7 +105,7 @@ const Onboarding = () => {
                 id="more_sex"
                 value="more"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.sex === "more"}
               />
               <label htmlFor="more_sex">More</label>
             </div>
@@ -91,7 +115,7 @@ const Onboarding = () => {
               name="show_sex"
               id="show_sex"
               onChange={handleChange}
-              checked={false}
+              checked={formData.show_sex}
             />
             <label>Show Me</label>
             <div className="multiple_input_container">
@@ -101,34 +125,34 @@ const Onboarding = () => {
                 id="man_sex_interest"
                 value="man"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.sex_interest === "man"}
               />
-              <label htmlFor="man_sex">Man</label>
+              <label htmlFor="man_sex_interest">Man</label>
               <input
                 type="radio"
                 name="sex_interest"
                 id="woman_sex_interest"
                 value="woman"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.sex_interest === "woman"}
               />
-              <label htmlFor="woman_sex">Woman</label>
+              <label htmlFor="woman_sex_interest">Woman</label>
               <input
                 type="radio"
                 name="sex_interest"
                 id="everyone_sex_interest"
                 value="everyone"
                 onChange={handleChange}
-                checked={false}
+                checked={formData.sex_interest === "everyone"}
               />
-              <label htmlFor="more_sex">Everyone</label>
+              <label htmlFor="everyone_sex_interest">Everyone</label>
             </div>
             <label htmlFor="about">About Me</label>
             <input
               type="text"
               name="about"
               id="about"
-              value={""}
+              value={formData.about}
               onChange={handleChange}
               required={true}
               placeholder="I like trains"
@@ -146,6 +170,7 @@ const Onboarding = () => {
               required={true}
             />
             <div className="photo_container"></div>
+            <img src={formData.url} alt="pofile picture preview" />
           </section>
         </form>
       </div>
