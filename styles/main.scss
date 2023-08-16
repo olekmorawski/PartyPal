@@ -1,5 +1,5 @@
 @import "components/normalize";
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Open+Sans:wght@300;400;700&family=Raleway:wght@300;400;700;800&display=swap"); 
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Open+Sans:wght@300;400;700&family=Raleway:wght@300;400;700;800&display=swap");
 
 html,
 body {
@@ -180,3 +180,43 @@ nav {
     }
   }
 }
+/*----- Dashboard ------*/
+.dashboard {
+  justify-content: space-between;
+  display: flex;
+  .swipe_container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100wh;
+  }
+  .card_container {
+    width: 400px;
+    height: 650px;
+  }
+  .swipe_info {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+  }
+}
+
+.swipe {
+  position: absolute;
+}
+
+.card {
+  width: 400px;
+  height: 650px;
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+/*----- Chat Container ------*/
