@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useStoreActions } from "easy-peasy";
+
 const AuthModal = ({ setShowModal, isSignUp }) => {
+  const setIsLoggedIn = useStoreActions(
+    (actions) => actions.auth.setIsLoggedIn
+  );
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
-
 
   const handleClick = () => {
     setShowModal(false);
@@ -15,6 +19,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
     try {
       if (isSignUp && password !== confirmPassword) {
         setError("Passwords are not identical!");
+      } else {
+        setIsLoggedIn(true);
       }
       console.log("make a post request to our database");
     } catch (error) {
@@ -46,14 +52,16 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
           required={true}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {isSignUp && <input
-          type="password"
-          name="password-check"
-          id="password-check"
-          placeholder="confirm password"
-          required={true}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />}
+        {isSignUp && (
+          <input
+            type="password"
+            name="password-check"
+            id="password-check"
+            placeholder="confirm password"
+            required={true}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        )}
         <input className="btn-secondary" type="submit" />
         <p>{error}</p>
       </form>
