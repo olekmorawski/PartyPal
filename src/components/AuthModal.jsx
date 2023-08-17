@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { useStoreActions } from "easy-peasy";
+import axios from "axios";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
   const setIsLoggedIn = useStoreActions(
@@ -9,22 +12,39 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies("user");
+
+  let navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (isSignUp && password !== confirmPassword) {
         setError("Passwords are not identical!");
-      } else {
-        setIsLoggedIn(true);
+        return;
       }
-      console.log("make a post request to our database");
-    } catch (error) {
-      console.error("Error:", error);
+      console.log("posting", email, password);
+      const response = await axios.post(
+        `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
+        {
+          email,
+          password,
+        }
+      );
+
+      setCookie("AuthToken", response.data.token);
+      setCookie("UserId", response.data.user_id);
+
+      const success = response.status == 201;
+
+      if (success && isSignUp) navigate("/onboarding");
+      if (success && !isSignUp) navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
     }
   };
 

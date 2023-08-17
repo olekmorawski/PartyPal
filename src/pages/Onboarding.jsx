@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
+import axios from "axios";
 
 const Onboarding = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [formData, setFormData] = useState({
-    user_id: "",
+    user_id: cookies.UserId,
     first_name: "",
     dob_day: "",
     dob_month: "",
@@ -17,9 +21,23 @@ const Onboarding = () => {
     matches: [],
   });
 
-  const handleSubmit = () => {
+  let navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     console.log("submited");
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:8000/user`, {
+        formData,
+      });
+      const success = response.status === 200;
+      console.log(response);
+      if (success) navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   const handleChange = (e) => {
     console.log(e);
     const value =
@@ -53,8 +71,8 @@ const Onboarding = () => {
             <div className="multiple_input_container">
               <input
                 type="number"
-                name="bod_day"
-                id="bod_day"
+                name="dob_day"
+                id="dob_day"
                 placeholder="DD"
                 required={true}
                 value={formData.dob_day}
@@ -62,8 +80,8 @@ const Onboarding = () => {
               />
               <input
                 type="number"
-                name="bod_month"
-                id="bod_month"
+                name="dob_month"
+                id="dob_month"
                 placeholder="MM"
                 required={true}
                 value={formData.dob_month}
@@ -71,8 +89,8 @@ const Onboarding = () => {
               />
               <input
                 type="number"
-                name="bod_year"
-                id="bod_year"
+                name="dob_year"
+                id="dob_year"
                 placeholder="YYYY"
                 required={true}
                 value={formData.dob_year}
@@ -169,8 +187,11 @@ const Onboarding = () => {
               onChange={handleChange}
               required={true}
             />
-            <div className="photo_container"></div>
-            <img src={formData.url} alt="pofile picture preview" />
+            <div className="photo_container">
+              {formData.url && (
+                <img src={formData.url} alt="pofile picture preview" />
+              )}
+            </div>
           </section>
         </form>
       </div>
