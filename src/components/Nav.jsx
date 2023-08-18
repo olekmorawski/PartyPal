@@ -13,7 +13,7 @@ const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
       setShowModal(true);
       setIsSignUp(false);
     } else {
-      setIsLoggedIn(false); // Logout action
+      setIsLoggedIn(false);
     }
   };
 

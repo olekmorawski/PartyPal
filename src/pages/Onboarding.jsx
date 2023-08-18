@@ -12,10 +12,9 @@ const Onboarding = () => {
     dob_day: "",
     dob_month: "",
     dob_year: "",
-    show_sex: false,
-    sex: "man",
-    sex_interest: "woman",
-    email: "",
+    show_gender: false,
+    gender_identity: "man",
+    gender_interest: "woman",
     url: "",
     about: "",
     matches: [],
@@ -41,7 +40,8 @@ const Onboarding = () => {
   const handleChange = (e) => {
     console.log(e);
     const value =
-      e.target.value === "checkbox" ? e.target.checked : e.target.value;
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
     const name = e.target.name;
     console.log("value" + value, "name" + name);
 

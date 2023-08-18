@@ -7,20 +7,22 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const uri =
   "mongodb+srv://olekmorawski:admin@cluster.8lth5i1.mongodb.net/?retryWrites=true&w=majority";
+
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.json("hello to my app");
+  res.json("test");
 });
 
 app.post("/signup", async (req, res) => {
   const client = new MongoClient(uri);
   const { email, password } = req.body;
 
-  const generateduserId = uuidv4();
-  const hashPassword = await bcrypt.hash(password, 10);
+  const generatedUserId = uuidv4();
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     await client.connect();
@@ -33,15 +35,16 @@ app.post("/signup", async (req, res) => {
 
     const sanitizedEmail = email.toLowerCase();
     const data = {
-      user_id: generateduserId,
+      user_id: generatedUserId,
       email: sanitizedEmail,
-      hashed_password: hashPassword,
+      hashed_password: hashedPassword,
     };
+
     const insertedUser = await users.insertOne(data);
     const token = jwt.sign(insertedUser, sanitizedEmail, {
       expiresIn: 60 * 24,
     });
-    res.status(201).json({ token, userId: generateduserId });
+    res.status(201).json({ token, userId: generatedUserId });
   } catch (err) {
     console.log(err);
   }
@@ -69,9 +72,26 @@ app.post("/login", async (req, res) => {
       });
       res.status(201).json({ token, userId: user.user_id });
     }
-    res.status(400).send("Invalid data");
+    res.status(400).json("Invalid data");
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.get("/user", async (req, res) => {
+  const client = new MongoClient(uri);
+  const userId = req.query.userId;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+
+    const query = { user_id: userId };
+    const user = await users.findOne(query);
+    res.send(user);
+  } finally {
+    await client.close();
   }
 });
 
@@ -92,7 +112,7 @@ app.get("/users", async (req, res) => {
 app.put("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const formData = req.body.formData;
-
+  console.log(formData);
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -115,7 +135,8 @@ app.put("/user", async (req, res) => {
     };
 
     const insertedUser = await users.updateOne(query, updateDocument);
-    res.send(insertedUser);
+    console.log(insertedUser);
+    res.json(insertedUser);
   } finally {
     await client.close();
   }
