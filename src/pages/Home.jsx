@@ -12,7 +12,7 @@ const Home = () => {
   const handleClick = () => {
     console.log("clicked");
     setShowModal(true);
-    setIsSignUp(!isLoggedIn); // Toggle between login and sign up
+    setIsSignUp(!isLoggedIn); 
   };
 
   return (
