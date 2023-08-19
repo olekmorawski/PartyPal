@@ -96,14 +96,16 @@ app.get("/user", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
+app.get("/interestingusers", async (req, res) => {
   const client = new MongoClient(uri);
+  const sex = req.query.sex
   try {
     await client.connect();
     const database = client.db("app-data");
     const users = database.collection("users");
+    const query = { sex: sex }
+    const foundUsers = await users.find(query).toArray()
 
-    const returnedUsers = await users.find().toArray();
     res.json(returnedUsers);
   } finally {
     await client.close();
@@ -142,5 +144,26 @@ app.put("/user", async (req, res) => {
     await client.close();
   }
 });
+
+app.put("/addmatch", async (req, res) => {
+  const client = new MongoClient(uri);
+  const { userId, matchedUserId } = req.body
+
+  try{
+    await client.connect()
+    const database = client.db('app-data')
+    const users = database.collection('users')
+
+    const query = { user_id: userId }
+    const updateDocument = {
+      $push: { matches: {user_id: matchedUserId}},
+    }
+    const user = await users.updateOne(query, updateDocument)
+    res.send(user)
+} finally {
+  await client.close()
+}
+})
+
 
 app.listen(port, () => console.log("server on port " + port));
