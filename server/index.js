@@ -96,6 +96,44 @@ app.get("/user", async (req, res) => {
   }
 });
 
+
+app.get("/users", async (req, res) => {
+  const client = new MongoClient(uri);
+  const userIds = JSON.parse(req.query.userIds)
+  console.log(userIds)
+
+  try {
+    await client.connect()
+    const database = client.db('app-data')
+    const users = database.collection('users')
+
+    const pipeline = 
+    [
+      {
+        '$match': {
+          'user_id': {
+            '$in': userIds
+          }
+        }
+      }
+    ]
+    const foundUsers = await users.aggregate(pipeline).toArray()
+    console.log(foundUsers)
+    res.json(foundUsers)
+
+  } finally {
+
+    await client.close()
+  }
+})
+
+
+
+
+
+
+
+
 app.get("/interestingusers", async (req, res) => {
   const client = new MongoClient(uri);
   const sex = req.query.sex
@@ -106,7 +144,7 @@ app.get("/interestingusers", async (req, res) => {
     const query = { sex: sex }
     const foundUsers = await users.find(query).toArray()
 
-    res.json(returnedUsers);
+    res.json(foundUsers);
   } finally {
     await client.close();
   }

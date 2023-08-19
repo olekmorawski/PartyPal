@@ -24,7 +24,7 @@ const Dashboard = () => {
   const getinterestingUsers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/interesting-users",
+        "http://localhost:8000/interestingusers",
         {
           params: { sex: user?.sex_interest },
         }
@@ -36,7 +36,7 @@ const Dashboard = () => {
   };
   useEffect(() => {
     getUser();
-    getinterestingUsers;
+    getinterestingUsers();
   }, []);
 
   const [lastDirection, setLastDirection] = useState();
@@ -64,10 +64,13 @@ const Dashboard = () => {
     console.log(name + " left the screen!");
   };
 
-  const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
+  const matchedUserIds = user?.matches
+    .map(({ user_id }) => user_id)
+    .concat(userId);
+
   const filterInterestingUsers = interestingUsers?.filter(
-    interestingUser => !matchedUserIds.includes(interestingUser.user_id)
-  )
+    (interestingUser) => !matchedUserIds.includes(interestingUser.user_id)
+  );
 
   return (
     <>
@@ -76,7 +79,7 @@ const Dashboard = () => {
           <ChatContainer user={user} />
           <div className="swipe_container">
             <div className="card_container">
-              {filterInterestingUsers.map((interestingUser) => (
+              {filterInterestingUsers?.map((interestingUser) => (
                 <TinderCard
                   className="swipe"
                   key={interestingUser.first_name}
