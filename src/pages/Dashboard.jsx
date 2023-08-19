@@ -6,12 +6,12 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies([user]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const userId = cookies.UserId;
   const getUser = async () => {
     try {
-      const response = axios.get("http://localhost:8000/user", {
+      const response = await axios.get("http://localhost:8000/user", {
         params: { userId },
       });
       setUser(response.data);
@@ -19,9 +19,12 @@ const Dashboard = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getUser();
   }, []);
+
+  console.log("user", user);
 
   const characters = [
     {

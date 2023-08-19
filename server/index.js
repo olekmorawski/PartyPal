@@ -81,6 +81,7 @@ app.post("/login", async (req, res) => {
 app.get("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const userId = req.query.userId;
+  console.log('userId', userId)
 
   try {
     await client.connect();
