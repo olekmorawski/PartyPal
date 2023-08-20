@@ -30,7 +30,7 @@ const Onboarding = () => {
         formData,
       });
       const success = response.status === 200;
-      console.log(response);
+
       if (success) navigate("/dashboard");
     } catch (err) {
       console.log(err);
@@ -38,12 +38,10 @@ const Onboarding = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e);
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     const name = e.target.name;
-    console.log("value" + value, "name" + name);
 
     setFormData((prevState) => ({
       ...prevState,

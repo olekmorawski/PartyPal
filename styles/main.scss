@@ -261,8 +261,8 @@ nav {
   }
 }
 .img_container {
-  height: 30px;
-  width: 30px;
+  max-height: 30px;
+  max-width: 30px;
   border-radius: 15px;
   overflow: hidden;
   margin: 10px;
@@ -296,55 +296,69 @@ nav {
       flex-direction: column;
       padding: 20px;
       width: 35%;
-    }
-    input {
-      padding: 15px 30px;
-      margin: 10px 0;
-      font-size: 15px;
-      border: solid 2px rgb(219, 219, 219);
-      border-radius: 10px;
-      ::-webkit-inner-spin-button,
-      ::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-    label {
-      margin: 10px 0;
-    }
-    .multiple_input_container {
-      display: flex;
-      flex-direction: row;
       input {
-        margin-right: 10px;
+        padding: 15px 30px;
+        margin: 10px 0;
+        font-size: 15px;
+        border: solid 2px rgb(219, 219, 219);
+        border-radius: 10px;
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
       label {
-        padding: 10px;
-        border: solid 2px rgb(144, 144, 144);
+        margin: 10px 0;
+      }
+      .multiple_input_container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        input,
+        select {
+          margin-right: 10px;
+        }
+        label {
+          padding: 10px;
+          border: solid 2px rgb(144, 144, 144);
+          border-radius: 10px;
+          transition: all 0.3s;
+          margin-right: 10px;
+        }
+      }
+      .price-container {
+        display: flex;
+        align-items: center;
+        label {
+          margin-right: 10px;
+        }
+        input[name="price"] {
+          flex: 1;
+        }
+      }
+      .photo_container img {
+        width: 100%;
+      }
+      input[type="submit"] {
+        &:hover {
+          background-color: rgb(235, 235, 235);
+        }
+        &:active {
+          background-color: rgb(226, 115, 155);
+        }
+      }
+      input[type="number"] {
+        width: 10%;
+      }
+      select {
+        padding: 15px 30px;
+        margin: 10px 0;
+        font-size: 15px;
+        border: solid 2px rgb(219, 219, 219);
         border-radius: 10px;
-        transition: all 0.3s;
-        margin-right: 10px;
       }
-    }
-    .photo_container img {
-      width: 100%;
-    }
-    input[type="radio"] {
-      display: none;
-      &:checked + label {
-        border: solid 2px rgb(221, 39, 22);
-      }
-    }
-    input[type="submit"] {
-      &:hover {
-        background-color: rgb(235, 235, 235);
-      }
-      &:active {
-        background-color: rgb(226, 115, 155);
-      }
-    }
-    input[type="number"] {
-      width: 10%;
     }
   }
 }

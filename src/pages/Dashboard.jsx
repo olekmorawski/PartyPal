@@ -36,11 +36,11 @@ const Dashboard = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getUser();
     getinterestingUsers();
   }, [user, interestingUsers]);
-
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -53,7 +53,6 @@ const Dashboard = () => {
       console.log(err);
     }
   };
-
 
   const swiped = (direction, swipedUserId) => {
     if (direction === "right") {
@@ -84,7 +83,7 @@ const Dashboard = () => {
               {filterInterestingUsers?.map((interestingUser) => (
                 <TinderCard
                   className="swipe"
-                  key={interestingUser.first_name}
+                  key={interestingUser.user_id}
                   onSwipe={(dir) => swiped(dir, interestingUser.user_id)}
                   onCardLeftScreen={() =>
                     outOfFrame(interestingUser.first_name)

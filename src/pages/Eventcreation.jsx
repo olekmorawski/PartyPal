@@ -1,12 +1,46 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
+import axios from "axios";
 
 const EventCreation = () => {
-  const handleSubmit = () => {
-    console.log("submited");
+  const [eventFormData, setEventFormData] = useState({
+    title: "",
+    address: "",
+    hour: "",
+    minutes: "",
+    timeOfDay: "AM",
+    about: "",
+    isPayable: false,
+    price: "",
+    url: "",
+    attendees: [],
+  });
+
+  let navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/create-event", {
+        eventFormData,
+      });
+      const success = response.status === 200;
+      if (success) navigate("/events");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleChange = () => {
-    console.log("changed");
+  const handleChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const name = e.target.name;
+
+    setEventFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -23,7 +57,7 @@ const EventCreation = () => {
               id="title"
               placeholder="Event title"
               required={true}
-              value={""}
+              value={eventFormData.title}
               onChange={handleChange}
             />
             <label htmlFor="address">Event Address</label>
@@ -33,59 +67,90 @@ const EventCreation = () => {
               id="address"
               placeholder="Event address"
               required={true}
-              value={""}
+              value={eventFormData.address}
               onChange={handleChange}
             />
-            <label htmlFor="hour">Event Hour</label>
-            <input
-              type="text"
-              name="hour"
-              id="hour"
-              placeholder="Event hour"
-              required={true}
-              value={""}
-              onChange={handleChange}
-            />
+            <label>Event Hour</label>
+            <div className="multiple_input_container">
+              <input
+                type="number"
+                name="hour"
+                id="hour"
+                placeholder="H"
+                required={true}
+                value={eventFormData.hour}
+                onChange={handleChange}
+                min="1"
+                max="12"
+              />
+              <input
+                type="number"
+                name="minutes"
+                id="minutes"
+                placeholder="M"
+                required={true}
+                value={eventFormData.minutes}
+                onChange={handleChange}
+                min="0"
+                max="59"
+              />
+              <select
+                name="timeOfDay"
+                id="timeOfDay"
+                value={eventFormData.timeOfDay}
+                onChange={handleChange}
+              >
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
             <label htmlFor="about">About the Event</label>
             <input
               type="text"
               name="about"
               id="about"
-              value={""}
+              value={eventFormData.about}
               onChange={handleChange}
               required={true}
               placeholder="Description of the event"
             />
-            <label htmlFor="isPayable">Is Payable?</label>
+            <label htmlFor="isPayable">Is it a Free Event?</label>
             <input
               type="checkbox"
               name="isPayable"
               id="isPayable"
               onChange={handleChange}
-              checked={""}
+              checked={eventFormData.isPayable}
             />
-            <label htmlFor="price">Price</label>
-            <input
-              type="text"
-              name="price"
-              id="price"
-              placeholder="Event price"
-              value={""}
-              onChange={handleChange}
-              disabled={""}
-            />
-            <label htmlFor="imageUrl">Event Image URL</label>
+            <div className="price-container">
+              <label htmlFor="price">Price</label>
+              <input
+                type="number"
+                name="price"
+                id="price"
+                placeholder="Price"
+                value={eventFormData.price}
+                onChange={handleChange}
+                disabled={eventFormData.isPayable}
+                required={!eventFormData.isPayable}
+              />
+            </div>
+            <input type="submit" />
+          </section>
+          <section>
+            <label htmlFor="url">Event Image URL</label>
             <input
               type="url"
-              name="imageUrl"
-              id="imageUrl"
+              name="url"
+              id="url"
               onChange={handleChange}
               required={true}
             />
-            <div className="image-container">
-              <img src={""} alt="event preview" />)
+            <div className="photo-container">
+              {eventFormData.url && (
+                <img src={eventFormData.url} alt="event picture preview" />
+              )}
             </div>
-            <input type="submit" />
           </section>
         </form>
       </div>

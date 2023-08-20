@@ -117,6 +117,7 @@ app.get("/users", async (req, res) => {
     ];
     const foundUsers = await users.aggregate(pipeline).toArray();
     res.send(foundUsers);
+    console.log(foundUsers);
   } finally {
     await client.close();
   }
@@ -186,9 +187,58 @@ app.put("/addmatch", async (req, res) => {
       $push: { matches: { user_id: matchedUserId } },
     };
     const user = await users.updateOne(query, updateDocument);
-    res.json(user);
+    res.send(user);
   } finally {
     await client.close();
+  }
+});
+
+app.get("/messages", async (req, res) => {
+  const client = new MongoClient(uri);
+  const { userId, correspondingUserId } = req.query;
+  console.log(userId, correspondingUserId);
+  try {
+    const database = client.db("app-data");
+    const messages = database.collection("messages");
+
+    const query = {
+      from_userId: userId,
+      to_userId: correspondingUserId,
+    };
+    const foundMessages = await messages.find(query).toArray();
+    res.send(foundMessages);
+  } finally {
+    await client.close();
+  }
+});
+
+app.post("/create-event", async (req, res) => {
+  const client = new MongoClient(uri);
+  const eventFormData = req.body.eventFormData;
+  console.log(eventFormData)
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const events = database.collection("events");
+
+    const newEvent = {
+      title: eventFormData.title,
+      address: eventFormData.address,
+      hour: eventFormData.hour,
+      minutes: eventFormData.minutes,
+      timeOfDay: eventFormData.timeOfDay,
+      about: eventFormData.about,
+      isPayable: eventFormData.isPayable,
+      price: eventFormData.price,
+      imageUrl: eventFormData.imageUrl,
+      attendees: eventFormData.attendees,
+    };
+
+    const insertedEvent = await events.insertOne(newEvent);
+    console.log(insertedEvent)
+    res.send(insertedEvent)
+  } finally {
+    client.close();
   }
 });
 
