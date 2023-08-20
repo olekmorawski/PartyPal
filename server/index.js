@@ -47,6 +47,8 @@ app.post("/signup", async (req, res) => {
     res.status(201).json({ token, userId: generatedUserId });
   } catch (err) {
     console.log(err);
+  } finally {
+    await client.close();
   }
 });
 
@@ -72,7 +74,7 @@ app.post("/login", async (req, res) => {
       });
       res.status(201).json({ token, userId: user.user_id });
     }
-    res.status(400).json("Invalid data");
+    res.status(400).send("Invalid data");
   } catch (err) {
     console.log(err);
   }
@@ -82,7 +84,6 @@ app.get("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const userId = req.query.userId;
 
-  
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -115,7 +116,7 @@ app.get("/users", async (req, res) => {
       },
     ];
     const foundUsers = await users.aggregate(pipeline).toArray();
-    res.json(foundUsers);
+    res.send(foundUsers);
   } finally {
     await client.close();
   }
