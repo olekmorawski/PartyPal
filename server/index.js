@@ -81,8 +81,8 @@ app.post("/login", async (req, res) => {
 app.get("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const userId = req.query.userId;
-  console.log('userId', userId)
 
+  
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -96,53 +96,41 @@ app.get("/user", async (req, res) => {
   }
 });
 
-
 app.get("/users", async (req, res) => {
   const client = new MongoClient(uri);
-  const userIds = JSON.parse(req.query.userIds)
-  console.log(userIds)
+  const userIds = JSON.parse(req.query.userIds);
 
-  try {
-    await client.connect()
-    const database = client.db('app-data')
-    const users = database.collection('users')
-
-    const pipeline = 
-    [
-      {
-        '$match': {
-          'user_id': {
-            '$in': userIds
-          }
-        }
-      }
-    ]
-    const foundUsers = await users.aggregate(pipeline).toArray()
-    console.log(foundUsers)
-    res.json(foundUsers)
-
-  } finally {
-
-    await client.close()
-  }
-})
-
-
-
-
-
-
-
-
-app.get("/interestingusers", async (req, res) => {
-  const client = new MongoClient(uri);
-  const sex = req.query.sex
   try {
     await client.connect();
     const database = client.db("app-data");
     const users = database.collection("users");
-    const query = { sex: sex }
-    const foundUsers = await users.find(query).toArray()
+
+    const pipeline = [
+      {
+        $match: {
+          user_id: {
+            $in: userIds,
+          },
+        },
+      },
+    ];
+    const foundUsers = await users.aggregate(pipeline).toArray();
+    res.json(foundUsers);
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/interestingusers", async (req, res) => {
+  const client = new MongoClient(uri);
+  const sex = req.query.sex;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+    const query = { sex: { $eq: sex } };
+    const foundUsers = await users.find(query).toArray();
 
     res.json(foundUsers);
   } finally {
@@ -153,7 +141,7 @@ app.get("/interestingusers", async (req, res) => {
 app.put("/user", async (req, res) => {
   const client = new MongoClient(uri);
   const formData = req.body.formData;
-  console.log(formData);
+
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -176,7 +164,7 @@ app.put("/user", async (req, res) => {
     };
 
     const insertedUser = await users.updateOne(query, updateDocument);
-    console.log(insertedUser);
+
     res.json(insertedUser);
   } finally {
     await client.close();
@@ -185,23 +173,22 @@ app.put("/user", async (req, res) => {
 
 app.put("/addmatch", async (req, res) => {
   const client = new MongoClient(uri);
-  const { userId, matchedUserId } = req.body
+  const { userId, matchedUserId } = req.body;
 
-  try{
-    await client.connect()
-    const database = client.db('app-data')
-    const users = database.collection('users')
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
 
-    const query = { user_id: userId }
+    const query = { user_id: userId };
     const updateDocument = {
-      $push: { matches: {user_id: matchedUserId}},
-    }
-    const user = await users.updateOne(query, updateDocument)
-    res.send(user)
-} finally {
-  await client.close()
-}
-})
-
+      $push: { matches: { user_id: matchedUserId } },
+    };
+    const user = await users.updateOne(query, updateDocument);
+    res.json(user);
+  } finally {
+    await client.close();
+  }
+});
 
 app.listen(port, () => console.log("server on port " + port));

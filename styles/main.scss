@@ -283,3 +283,185 @@ nav {
   display: flex;
   flex-direction: column;
 }
+
+/*----- Event Creation  ------*/
+
+.event-creation {
+  border-top: solid 1px gray;
+  form {
+    display: flex;
+    justify-content: center;
+    section {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      width: 35%;
+    }
+    input {
+      padding: 15px 30px;
+      margin: 10px 0;
+      font-size: 15px;
+      border: solid 2px rgb(219, 219, 219);
+      border-radius: 10px;
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+    label {
+      margin: 10px 0;
+    }
+    .multiple_input_container {
+      display: flex;
+      flex-direction: row;
+      input {
+        margin-right: 10px;
+      }
+      label {
+        padding: 10px;
+        border: solid 2px rgb(144, 144, 144);
+        border-radius: 10px;
+        transition: all 0.3s;
+        margin-right: 10px;
+      }
+    }
+    .photo_container img {
+      width: 100%;
+    }
+    input[type="radio"] {
+      display: none;
+      &:checked + label {
+        border: solid 2px rgb(221, 39, 22);
+      }
+    }
+    input[type="submit"] {
+      &:hover {
+        background-color: rgb(235, 235, 235);
+      }
+      &:active {
+        background-color: rgb(226, 115, 155);
+      }
+    }
+    input[type="number"] {
+      width: 10%;
+    }
+  }
+}
+
+/*----- Event Creation  ------*/
+
+.events {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  border-top: solid 1px gray;
+  align-items: center;
+  flex-direction: column;
+  .add_event_container {
+    margin-top: 25px;
+    height: 96px;
+    width: 750px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(201, 201, 201);
+    align-items: center;
+    border-radius: 90px;
+    gap: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    .add_event_btn {
+      background-color: initial;
+      background-image: linear-gradient(-180deg, #00d775, #00bd68);
+      border-radius: 90px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-block;
+      height: 44px;
+      line-height: 44px;
+      outline: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      pointer-events: auto;
+      position: relative;
+      text-align: center;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      vertical-align: top;
+      white-space: nowrap;
+      width: 300px;
+      z-index: 9;
+      border: 0;
+      margin-left: 50px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .add_event_btn:hover {
+      background: #00bd68;
+    }
+
+    .add_event_text {
+      height: 60px;
+      width: 300px;
+      color: white;
+      margin-left: 80px;
+      display: flex;
+      align-items: center;
+      p {
+        font-size: 24px;
+        color: black;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.events_container {
+  width: 1600px;
+  max-height: 2000px;
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 120px;
+  justify-content: center;
+  .event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    background-color: rgb(201, 201, 201);
+    border-radius: 30px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    .up {
+      width: 350px;
+      height: 200px;
+    }
+    .down {
+      width: 350px;
+      height: 100px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      button {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 16px;
+        background: linear-gradient(45deg, rgb(256, 48, 114), rgb(255, 89, 64));
+        padding: 12px 30px;
+        border-radius: 30px;
+        border: none;
+        margin-bottom: 15px;
+      }
+      button:hover {
+        background: linear-gradient(
+          260deg,
+          rgb(256, 48, 114),
+          rgb(255, 89, 64)
+        );
+        cursor: pointer;
+      }
+    }
+  }
+}

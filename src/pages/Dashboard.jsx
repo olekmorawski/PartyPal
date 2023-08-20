@@ -8,8 +8,10 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [interestingUsers, setInterestingUsers] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [lastDirection, setLastDirection] = useState();
 
   const userId = cookies.UserId;
+
   const getUser = async () => {
     try {
       const response = await axios.get("http://localhost:8000/user", {
@@ -37,9 +39,8 @@ const Dashboard = () => {
   useEffect(() => {
     getUser();
     getinterestingUsers();
-  }, []);
+  }, [user, interestingUsers]);
 
-  const [lastDirection, setLastDirection] = useState();
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -52,6 +53,7 @@ const Dashboard = () => {
       console.log(err);
     }
   };
+
 
   const swiped = (direction, swipedUserId) => {
     if (direction === "right") {
@@ -94,7 +96,7 @@ const Dashboard = () => {
                     }}
                     className="card"
                   >
-                    <h3>{character.name}</h3>
+                    <h3>{interestingUser.first_name}</h3>
                   </div>
                 </TinderCard>
               ))}
