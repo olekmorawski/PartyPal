@@ -196,7 +196,6 @@ app.put("/addmatch", async (req, res) => {
 app.get("/messages", async (req, res) => {
   const client = new MongoClient(uri);
   const { userId, correspondingUserId } = req.query;
-  console.log(userId, correspondingUserId);
   try {
     const database = client.db("app-data");
     const messages = database.collection("messages");
@@ -206,6 +205,7 @@ app.get("/messages", async (req, res) => {
       to_userId: correspondingUserId,
     };
     const foundMessages = await messages.find(query).toArray();
+    console.log(foundMessages)
     res.send(foundMessages);
   } finally {
     await client.close();
@@ -215,7 +215,7 @@ app.get("/messages", async (req, res) => {
 app.post("/create-event", async (req, res) => {
   const client = new MongoClient(uri);
   const eventFormData = req.body.eventFormData;
-  console.log(eventFormData)
+  console.log(eventFormData);
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -230,15 +230,36 @@ app.post("/create-event", async (req, res) => {
       about: eventFormData.about,
       isPayable: eventFormData.isPayable,
       price: eventFormData.price,
-      imageUrl: eventFormData.imageUrl,
+      url: eventFormData.url,
       attendees: eventFormData.attendees,
     };
 
     const insertedEvent = await events.insertOne(newEvent);
-    console.log(insertedEvent)
-    res.send(insertedEvent)
+    res.send(insertedEvent);
   } finally {
     client.close();
+  }
+});
+
+app.get("/getevent", async (req, res) => {
+  const client = new MongoClient(uri);
+  const { title, url } = req.query;
+
+  try {
+    const database = client.db("app-data");
+    const eventCollection = database.collection("events");
+
+    const query = {
+      title: title,
+      url: url,
+    };
+    console.log("Query parameters:", title, url);
+    const foundEvents = await eventCollection.find(query).toArray();
+    console.log("Found events:", foundEvents);
+
+    res.send(foundEvents);
+  } finally {
+    await client.close();
   }
 });
 

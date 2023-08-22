@@ -40,7 +40,7 @@ const Dashboard = () => {
   useEffect(() => {
     getUser();
     getinterestingUsers();
-  }, [user, interestingUsers]);
+  }, []);
 
   const updateMatches = async (matchedUserId) => {
     try {
