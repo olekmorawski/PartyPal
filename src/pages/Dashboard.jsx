@@ -39,8 +39,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     getUser();
-    getinterestingUsers();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getinterestingUsers();
+    }
+  }, [user]);
 
   const updateMatches = async (matchedUserId) => {
     try {

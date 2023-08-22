@@ -62,13 +62,9 @@ const ChatDispaly = ({ user, clickedUser }) => {
   return (
     <>
       <Chat descOrderMsg={descOrderMsg} />
-      <ChatInput
-        user={user}
-        clickedUser={clickedUser}
-        getUsersMessages={getUsersMessages}
-        getClickedUsersMessages={getClickedUsersMessages}
-      />
+      <ChatInput />
     </>
   );
 };
+
 export default ChatDispaly;
