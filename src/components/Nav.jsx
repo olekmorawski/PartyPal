@@ -1,21 +1,12 @@
-import { useStoreState, useStoreActions } from "easy-peasy";
 import whitelogo from "/styles/images/logo_white_letters.png";
 import colorlogo from "/styles/images/logo_color_letters.png";
 
-const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
-  const isLoggedIn = useStoreState((state) => state.auth.isLoggedIn);
-  const setIsLoggedIn = useStoreActions(
-    (actions) => actions.auth.setIsLoggedIn
-  );
+const Nav = ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) => {
 
   const handleClick = () => {
-    if (!isLoggedIn) {
-      setShowModal(true);
-      setIsSignUp(false);
-    } else {
-      setIsLoggedIn(false);
-    }
-  };
+    setShowModal(true)
+    setIsSignUp(false)
+  }
 
   return (
     <nav>
@@ -26,12 +17,12 @@ const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
           alt="PartyPal logo"
         />
       </div>
-      {!isLoggedIn && !minimal && (
+      {!authToken && !minimal && (
         <button className="btn-nav" onClick={handleClick} disabled={showModal}>
           Log in
         </button>
       )}
-      {isLoggedIn && (
+      {authToken && (
         <button className="btn-nav" onClick={handleClick}>
           Logout
         </button>

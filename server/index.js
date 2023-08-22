@@ -117,7 +117,6 @@ app.get("/users", async (req, res) => {
     ];
     const foundUsers = await users.aggregate(pipeline).toArray();
     res.send(foundUsers);
-    console.log(foundUsers);
   } finally {
     await client.close();
   }
@@ -209,6 +208,20 @@ app.get("/messages", async (req, res) => {
   }
 });
 
+app.post("/message", async (req, res) => {
+  const client = new MongoClient(uri);
+  const message = req.body.message;
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const messages = database.collection("messages");
+    const insertedMessage = await messages.insertOne(message);
+    res.send(insertedMessage);
+  } finally {
+    await client.close();
+  }
+});
+
 app.post("/create-event", async (req, res) => {
   const client = new MongoClient(uri);
   const eventFormData = req.body.eventFormData;
@@ -249,9 +262,7 @@ app.get("/getevent", async (req, res) => {
       title: title,
       url: url,
     };
-    console.log("Query parameters:", title, url);
     const foundEvents = await eventCollection.find(query).toArray();
-    console.log("Found events:", foundEvents);
 
     res.send(foundEvents);
   } finally {

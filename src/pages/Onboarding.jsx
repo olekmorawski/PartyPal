@@ -23,7 +23,6 @@ const Onboarding = () => {
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    console.log("submited");
     e.preventDefault();
     try {
       const response = await axios.put(`http://localhost:8000/user`, {

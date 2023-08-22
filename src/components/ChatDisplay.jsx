@@ -62,7 +62,12 @@ const ChatDispaly = ({ user, clickedUser }) => {
   return (
     <>
       <Chat descOrderMsg={descOrderMsg} />
-      <ChatInput />
+      <ChatInput
+        user={user}
+        clickedUser={clickedUser}
+        getUsersMessages={getUsersMessages}
+        getClickedUserMessages={getClickedUsersMessages}
+      />
     </>
   );
 };
