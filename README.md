@@ -36,13 +36,12 @@ PartyPal's frontend is built using a range of modern technologies, ensuring a sm
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/35px-React-icon.svg.png" alt="React Logo"> [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
 - <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" height="35"> [Vite](https://vitejs.dev/) - Fast and efficient build tool for web apps.
 - <img src="https://sass-lang.com/assets/img/logos/logo.svg" alt="SASS Logo" height="35"> [SASS](https://sass-lang.com/) - A powerful CSS preprocessor for styling.
-- <img src="https://github.com/ctrlplusb/easy-peasy/blob/master/website/docs/assets/logo-small.png" alt="Easy Peasy Logo" height="35"> [Easy Peasy](https://easy-peasy.now.sh/) - A state management library for React.
 
 ## Backend Technologies
 
 PartyPal's backend is powered by the following technologies:
 
-- <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js Logo" height="35"> [Node.js](https://nodejs.org/) - A JavaScript runtime for building server-side applications.
+- <img src="https://expressjs.com/images/favicon.png" alt="Express.js Logo" height="35"> [Express.js](https://expressjs.com/) - A fast, unopinionated, minimalist web framework for Node.js.
 - <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png" alt="MongoDB Logo" height="35"> [MongoDB](https://www.mongodb.com/) - A popular NoSQL database for data storage.
 
 ## Libraries
@@ -54,12 +53,10 @@ PartyPal utilizes the following libraries to enhance its functionality:
 - [normalize.css](https://github.com/necolas/normalize.css) - Makes browsers render all elements more consistently and in line with modern standards.
 - [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - A library for hashing passwords.
 - [cors](https://github.com/expressjs/cors) - Middleware for enabling CORS in Express applications.
-- [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from a .env file.
 - [express](https://github.com/expressjs/express) - A fast, unopinionated, minimalist web framework for Node.js.
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - JSON Web Token implementation for Node.js.
 - [nodemon](https://github.com/remy/nodemon) - Utility for monitoring changes and automatically restarting the server.
 - [uuid](https://github.com/uuidjs/uuid) - A library for generating and working with UUIDs.
-- [easy-peasy](https://easy-peasy.now.sh/) - A state management library for React.
 
 ## Getting Started
 
