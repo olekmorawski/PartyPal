@@ -21,8 +21,11 @@ const MatchesDispaly = ({ matches, setClickedUser }) => {
     getMatches();
   }, [matches]);
 
+  // const filteredMatches = matchedProfiles?.filter(matchedProfile => matchedProfile.matches.filter(profile => profile.user_id == userId)).length > 0
+
   return (
     <div className="matches_display">
+      {/* change this if you want this func to work */}
       {matchedProfiles?.map((match) => (
         <div
           key={ match.user_id }

@@ -47,6 +47,7 @@ app.post("/signup", async (req, res) => {
     res.status(201).json({ token, userId: generatedUserId });
   } catch (err) {
     console.log(err);
+    return res.status(500).send("Internal server error");
   } finally {
     await client.close();
   }
@@ -63,20 +64,29 @@ app.post("/login", async (req, res) => {
 
     const user = await users.findOne({ email });
 
+    if (!user) {
+      return res.status(400).json("Invalid Credentials");
+    }
+
     const correctPassword = await bcrypt.compare(
       password,
       user.hashed_password
     );
 
-    if (user && correctPassword) {
-      const token = jwt.sign(user, email, {
-        expiresIn: 60 * 24,
-      });
-      res.status(201).json({ token, userId: user.user_id });
+    if (!correctPassword) {
+      return res.status(400).json("Invalid Credentials");
     }
-    res.status(400).send("Invalid data");
+
+    const token = jwt.sign(user, email, {
+      expiresIn: 60 * 24,
+    });
+
+    return res.status(201).json({ token, userId: user.user_id });
   } catch (err) {
     console.log(err);
+    return res.status(500).json("Server Error");
+  } finally {
+    await client.close();
   }
 });
 

@@ -2,7 +2,6 @@ import Nav from "../components/Nav";
 import AuthModal from "../components/AuthModal";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);

@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useStoreActions } from "easy-peasy";
 import axios from "axios";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
-  const setIsLoggedIn = useStoreActions(
-    (actions) => actions.auth.setIsLoggedIn
-  );
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
