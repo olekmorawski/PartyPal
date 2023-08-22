@@ -1,5 +1,3 @@
-import React from 'react';
-
 const EventCard = ({ title, url }) => {
   return (
     <div className="event" style={{ backgroundImage: `url(${url})` }}>

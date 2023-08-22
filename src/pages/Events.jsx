@@ -1,20 +1,16 @@
+import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import EventCard from "../components/EventCard";
 import axios from "axios";
-import { useState, useEffect } from "react";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
 
-  const getEvent = async (e) => {
+  const getEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/getevent", {
-        params: eventFormData,
-      });
-
-      const newEvent = response.data;
-      setEvents((prevEvents) => [newEvent, ...prevEvents]);
-      console.log(setEvents);
+      const response = await axios.get("http://localhost:8000/getevent");
+      const newEvents = response.data;
+      setEvents(newEvents)
     } catch (err) {
       console.log(err);
     }
@@ -23,7 +19,6 @@ const Events = () => {
   useEffect(() => {
     getEvent();
   }, []);
-  console.log();
 
   return (
     <>
@@ -43,8 +38,8 @@ const Events = () => {
           </div>
         </div>
         <div className="events_container">
-          {events.map((event) => (
-            <EventCard />
+          {events.map((event, index) => (
+            <EventCard key={index} title={event.title} url={event.url} />
           ))}
         </div>
       </div>

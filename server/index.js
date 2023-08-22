@@ -262,22 +262,33 @@ app.post("/create-event", async (req, res) => {
 
 app.get("/getevent", async (req, res) => {
   const client = new MongoClient(uri);
-  const { title, url } = req.query;
 
   try {
+    await client.connect();
     const database = client.db("app-data");
     const eventCollection = database.collection("events");
 
-    const query = {
-      title: title,
-      url: url,
-    };
-    const foundEvents = await eventCollection.find(query).toArray();
+    const { title, url } = req.query;
+    const queryParams = {};
 
+    const queryFields = {
+      title,
+      url,
+    };
+
+    Object.keys(queryFields).forEach((key) => {
+      if (queryFields[key]) {
+        queryParams[key] = queryFields[key];
+      }
+    });
+
+    const foundEvents = await eventCollection.find(queryParams).toArray();
     res.send(foundEvents);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send("An error occurred while fetching events.");
   } finally {
     await client.close();
   }
 });
-
 app.listen(port, () => console.log("server on port " + port));
