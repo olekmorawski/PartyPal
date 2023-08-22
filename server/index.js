@@ -164,9 +164,7 @@ app.put("/user", async (req, res) => {
         matches: formData.matches,
       },
     };
-
     const insertedUser = await users.updateOne(query, updateDocument);
-
     res.json(insertedUser);
   } finally {
     await client.close();
@@ -205,7 +203,6 @@ app.get("/messages", async (req, res) => {
       to_userId: correspondingUserId,
     };
     const foundMessages = await messages.find(query).toArray();
-    console.log(foundMessages)
     res.send(foundMessages);
   } finally {
     await client.close();
@@ -215,7 +212,6 @@ app.get("/messages", async (req, res) => {
 app.post("/create-event", async (req, res) => {
   const client = new MongoClient(uri);
   const eventFormData = req.body.eventFormData;
-  console.log(eventFormData);
   try {
     await client.connect();
     const database = client.db("app-data");
