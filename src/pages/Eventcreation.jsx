@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import Nav from "../components/Nav";
 import axios from "axios";
 
@@ -17,6 +18,13 @@ const EventCreation = () => {
     attendees: [],
   });
 
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleLogout = () => {
+    removeCookie("UserId", cookies.UserId);
+    removeCookie("AuthToken", cookies.AuthToken);
+    window.location.reload();
+  };
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -45,7 +53,13 @@ const EventCreation = () => {
 
   return (
     <>
-      <Nav minimal={true} setShowModal={() => {}} showModal={false} />
+      <Nav
+        minimal={true}
+        setShowModal={() => {}}
+        showModal={false}
+        authToken={cookies.AuthToken}
+        handleLogout={handleLogout}
+      />
       <div className="event-creation">
         <h2>Create Event</h2>
         <form onSubmit={handleSubmit}>

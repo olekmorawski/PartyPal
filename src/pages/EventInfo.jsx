@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import Nav from "../components/Nav";
 import axios from "axios";
 
@@ -7,6 +8,14 @@ const EventInfo = () => {
   const [event, setEvent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleLogout = () => {
+    removeCookie("UserId", cookies.UserId);
+    removeCookie("AuthToken", cookies.AuthToken);
+    window.location.reload();
+  };
 
   const EventData = async () => {
     try {
@@ -27,7 +36,13 @@ const EventInfo = () => {
 
   return (
     <>
-      <Nav minimal={true} setShowModal={() => {}} showModal={false} />
+      <Nav
+        minimal={true}
+        setShowModal={() => {}}
+        showModal={false}
+        authToken={cookies.AuthToken}
+        handleLogout={handleLogout}
+      />
       {isLoading ? (
         <div>Loading...</div>
       ) : (

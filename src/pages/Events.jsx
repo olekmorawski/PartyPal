@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
 import EventCard from "../components/EventCard";
@@ -8,6 +9,15 @@ const Events = () => {
   const [events, setEvents] = useState([]);
 
   const navigate = useNavigate();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleLogout = () => {
+    removeCookie("UserId", cookies.UserId);
+    removeCookie("AuthToken", cookies.AuthToken);
+    window.location.reload();
+  };
+
   const getEventCard = async () => {
     try {
       const response = await axios.get("http://localhost:8000/geteventcard");
@@ -24,7 +34,13 @@ const Events = () => {
 
   return (
     <>
-      <Nav minimal={true} setShowModal={() => {}} showModal={false} />
+      <Nav
+        minimal={true}
+        setShowModal={() => {}}
+        showModal={false}
+        authToken={cookies.AuthToken}
+        handleLogout={handleLogout}
+      />
       <div className="events">
         <div className="add_event_container">
           <button

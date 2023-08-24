@@ -5,7 +5,7 @@ const ChatHeader = ({ user }) => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-  const logout = () => {
+  const handleLogout = () => {
     removeCookie("UserId", cookies.UserId);
     removeCookie("AuthToken", cookies.AuthToken);
     window.location.reload();
@@ -19,7 +19,7 @@ const ChatHeader = ({ user }) => {
         </div>
         <h3>{user.first_name}</h3>
       </div>
-      <i className="log_out_icon" onClick={logout}>←</i>
+      <i className="log_out_icon" onClick={handleLogout}>←</i>
     </div>
   );
 };

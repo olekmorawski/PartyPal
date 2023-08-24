@@ -22,6 +22,12 @@ const Onboarding = () => {
 
   let navigate = useNavigate();
 
+  const handleLogout = () => {
+    removeCookie("UserId", cookies.UserId);
+    removeCookie("AuthToken", cookies.AuthToken);
+    window.location.reload();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -49,7 +55,13 @@ const Onboarding = () => {
   };
   return (
     <>
-      <Nav minimal={true} setShowModal={() => {}} showModal={false} />
+      <Nav
+        minimal={true}
+        setShowModal={() => {}}
+        showModal={false}
+        authToken={cookies.AuthToken}
+        handleLogout={handleLogout}
+      />
       <div className="onboarding">
         <h2>CREATE ACCOUNT</h2>
         <form onSubmit={handleSubmit}>
