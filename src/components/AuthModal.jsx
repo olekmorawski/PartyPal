@@ -24,7 +24,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         setError("Passwords are not identical!");
         return;
       }
-      console.log("posting", email, password);
+
       const response = await axios.post(
         `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
         {
@@ -39,7 +39,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       const success = response.status == 201;
 
       if (success && isSignUp) navigate("/onboarding");
-      if (success && !isSignUp) navigate("/dashboard");
+      if (success && !isSignUp) navigate("/events");
       window.location.reload();
       
     } catch (err) {

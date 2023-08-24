@@ -30,7 +30,7 @@ const Onboarding = () => {
       });
       const success = response.status === 200;
 
-      if (success) navigate("/dashboard");
+      if (success) navigate("/events");
     } catch (err) {
       console.log(err);
     }

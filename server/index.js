@@ -7,7 +7,6 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const uri =
   "mongodb+srv://olekmorawski:admin@cluster.8lth5i1.mongodb.net/?retryWrites=true&w=majority";
-
 const app = express();
 
 app.use(express.json());
@@ -260,7 +259,7 @@ app.post("/create-event", async (req, res) => {
   }
 });
 
-app.get("/getevent", async (req, res) => {
+app.get("/geteventcard", async (req, res) => {
   const client = new MongoClient(uri);
 
   try {
@@ -270,17 +269,12 @@ app.get("/getevent", async (req, res) => {
 
     const { title, url } = req.query;
     const queryParams = {};
-
-    const queryFields = {
-      title,
-      url,
-    };
-
-    Object.keys(queryFields).forEach((key) => {
-      if (queryFields[key]) {
-        queryParams[key] = queryFields[key];
-      }
-    });
+    if (title) {
+      queryParams.title = title;
+    }
+    if (url) {
+      queryParams.url = url;
+    }
 
     const foundEvents = await eventCollection.find(queryParams).toArray();
     res.send(foundEvents);
@@ -291,4 +285,5 @@ app.get("/getevent", async (req, res) => {
     await client.close();
   }
 });
+
 app.listen(port, () => console.log("server on port " + port));

@@ -423,6 +423,9 @@ nav {
     }
   }
 }
+
+/*----- Event Page  ------*/
+
 .events_container {
   width: 1600px;
   max-height: 2000px;
@@ -443,6 +446,17 @@ nav {
     .up {
       width: 350px;
       height: 200px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      .star-button {
+        margin-right: 10px;
+        margin-top: 13px;
+        filter: brightness(0) saturate(100%) invert(100%);
+      }
+      .star-button.selected {
+        filter: brightness(100%);
+      }
     }
     .down {
       width: 350px;
@@ -450,6 +464,7 @@ nav {
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
+      flex-direction: column-reverse;
       button {
         color: #fff;
         text-transform: uppercase;
@@ -466,6 +481,14 @@ nav {
           rgb(256, 48, 114),
           rgb(255, 89, 64)
         );
+        cursor: pointer;
+      }
+      button:nth-child(2) {
+        background: linear-gradient(45deg, rgb(48, 48, 256), rgb(89, 89, 255));
+        margin-bottom: 5px;
+      }
+      button:nth-child(2):hover {
+        background: linear-gradient(260deg, rgb(48, 48, 256), rgb(89, 89, 255));
         cursor: pointer;
       }
     }

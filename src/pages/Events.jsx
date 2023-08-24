@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
 import EventCard from "../components/EventCard";
 import axios from "axios";
@@ -6,18 +7,19 @@ import axios from "axios";
 const Events = () => {
   const [events, setEvents] = useState([]);
 
-  const getEvent = async () => {
+  const navigate = useNavigate();
+  const getEventCard = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/getevent");
+      const response = await axios.get("http://localhost:8000/geteventcard");
       const newEvents = response.data;
-      setEvents(newEvents)
+      setEvents(newEvents);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getEvent();
+    getEventCard();
   }, []);
 
   return (
@@ -28,7 +30,7 @@ const Events = () => {
           <button
             className="add_event_btn"
             onClick={() => {
-              window.location.href = "/eventcreation";
+              navigate("/eventcreation");
             }}
           >
             +
