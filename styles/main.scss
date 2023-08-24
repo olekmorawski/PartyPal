@@ -355,7 +355,7 @@ nav {
   }
 }
 
-/*----- Event Creation  ------*/
+/*----- Event Page  ------*/
 
 .events {
   width: 100vw;
@@ -423,9 +423,6 @@ nav {
     }
   }
 }
-
-/*----- Event Page  ------*/
-
 .events_container {
   width: 1600px;
   max-height: 2000px;
@@ -449,12 +446,12 @@ nav {
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
-      .star-button {
+      .star_button {
         margin-right: 10px;
         margin-top: 13px;
         filter: brightness(0) saturate(100%) invert(100%);
       }
-      .star-button.selected {
+      .star_button.selected {
         filter: brightness(100%);
       }
     }
@@ -490,6 +487,46 @@ nav {
       button:nth-child(2):hover {
         background: linear-gradient(260deg, rgb(48, 48, 256), rgb(89, 89, 255));
         cursor: pointer;
+      }
+    }
+  }
+}
+
+/*----- Event Info  ------*/
+
+.event_info {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  border-top: solid 1px gray;
+  align-items: center;
+  flex-direction: column;
+  .event_details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .image_container {
+      width: 80%;
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      h1 {
+        margin: 0;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+      }
+    }
+    .info_container {
+      height: 500px;
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      h3 {
+        margin: 10px 0;
       }
     }
   }

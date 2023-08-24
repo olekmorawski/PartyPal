@@ -12,10 +12,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.json("test");
-});
-
 app.post("/signup", async (req, res) => {
   const client = new MongoClient(uri);
   const { email, password } = req.body;
@@ -278,6 +274,38 @@ app.get("/geteventcard", async (req, res) => {
 
     const foundEvents = await eventCollection.find(queryParams).toArray();
     res.send(foundEvents);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send("An error occurred while fetching events.");
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/geteventdata", async (req, res) => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const eventCollection = database.collection("events");
+
+    const { title, url, address, hour, timeOfDay, about, isPayable, price } =
+      req.query;
+
+    const queryParams = {};
+    if (title) queryParams.title = title;
+    if (url) queryParams.url = url;
+    if (address) queryParams.address = address;
+    if (hour) queryParams.hour = hour;
+    if (timeOfDay) queryParams.timeOfDay = timeOfDay;
+    if (about) queryParams.about = about;
+    if (isPayable) queryParams.isPayable = isPayable === "false";
+    if (price) queryParams.price = parseFloat(price);
+
+    const eventData = await eventCollection.find(queryParams).toArray();
+    res.send(eventData);
+    console.log(eventData)
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("An error occurred while fetching events.");

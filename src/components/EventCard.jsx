@@ -17,7 +17,7 @@ const EventCard = ({ title, url }) => {
       <div className="up">
         <button
           onClick={() => setIsStarSelected(!isStarSelected)}
-          className={`star-button ${isStarSelected ? "selected" : ""}`}
+          className={`star_button ${isStarSelected ? "selected" : ""}`}
           style={{
             backgroundColor: "transparent",
             border: "none",
