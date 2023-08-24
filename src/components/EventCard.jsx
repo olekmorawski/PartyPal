@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
-const EventCard = ({ title, url }) => {
+const EventCard = ({ title, url, eventId }) => {
   const [isStarSelected, setIsStarSelected] = useState(false);
 
   const navigate = useNavigate();
@@ -42,16 +42,9 @@ const EventCard = ({ title, url }) => {
         >
           Find a pal!
         </button>
-        <button
-          onClick={() => {
-            navigate("/eventinfo");
-          }}
-        >
-          Event Info
-        </button>
+        <Link to={`/eventinfo/${eventId}`}>Event Info</Link>
       </div>
     </div>
   );
 };
-
 export default EventCard;

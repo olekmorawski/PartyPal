@@ -1,6 +1,7 @@
 const port = 8000;
 const express = require("express");
 const { MongoClient } = require("mongodb");
+const ObjectId = require("mongodb").ObjectId;
 const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -282,7 +283,7 @@ app.get("/geteventcard", async (req, res) => {
   }
 });
 
-app.get("/geteventdata", async (req, res) => {
+app.get("/geteventdata/", async (req, res) => {
   const client = new MongoClient(uri);
 
   try {
@@ -305,7 +306,26 @@ app.get("/geteventdata", async (req, res) => {
 
     const eventData = await eventCollection.find(queryParams).toArray();
     res.send(eventData);
-    console.log(eventData)
+    console.log(eventData);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send("An error occurred while fetching events.");
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/geteventdata/:id", async (req, res) => {
+  const client = new MongoClient(uri);
+  const { id } = req.params;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const eventCollection = database.collection("events");
+
+    const eventData = await eventCollection.findOne({ _id: new ObjectId(id) });
+    res.send(eventData);
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("An error occurred while fetching events.");

@@ -40,8 +40,13 @@ const Events = () => {
           </div>
         </div>
         <div className="events_container">
-          {events.map((event, index) => (
-            <EventCard key={index} title={event.title} url={event.url} />
+          {events.map((event) => (
+            <EventCard
+              key={event._id}
+              title={event.title}
+              url={event.url}
+              eventId={event._id}
+            />
           ))}
         </div>
       </div>

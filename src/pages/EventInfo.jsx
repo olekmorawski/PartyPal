@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import axios from "axios";
 
-const EventInfo = ({ title }) => {
+const EventInfo = () => {
   const [event, setEvent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
 
   const EventData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/geteventdata`,
-        {
-          params: {
-            title: title,
-          },
-        }
+        `http://localhost:8000/geteventdata/${id}`
       );
-      setEvent(response.data[0]);
+      setEvent(response.data);
     } catch (err) {
       console.log(err);
     } finally {

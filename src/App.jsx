@@ -21,7 +21,7 @@ const App = () => {
         {authToken && (
           <Route path="/eventcreation" element={<EventCreation />} />
         )}
-        {authToken && <Route path="/eventinfo" element={<EventInfo />} />}
+        {authToken && <Route path="/eventinfo/:id" element={<EventInfo />} />}
       </Routes>
     </BrowserRouter>
   );

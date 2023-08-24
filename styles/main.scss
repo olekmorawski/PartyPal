@@ -480,13 +480,29 @@ nav {
         );
         cursor: pointer;
       }
-      button:nth-child(2) {
+      a {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 16px;
         background: linear-gradient(45deg, rgb(48, 48, 256), rgb(89, 89, 255));
+        padding: 12px 30px;
+        border-radius: 30px;
+        border: none;
         margin-bottom: 5px;
+        text-decoration: none;
+        display: inline-block;
       }
-      button:nth-child(2):hover {
+      a:hover {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 16px;
         background: linear-gradient(260deg, rgb(48, 48, 256), rgb(89, 89, 255));
-        cursor: pointer;
+        padding: 12px 30px;
+        border-radius: 30px;
+        border: none;
+        margin-bottom: 5px;
+        text-decoration: none;
+        display: inline-block;
       }
     }
   }
