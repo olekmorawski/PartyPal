@@ -301,7 +301,7 @@ app.get("/geteventdata/", async (req, res) => {
     if (hour) queryParams.hour = hour;
     if (timeOfDay) queryParams.timeOfDay = timeOfDay;
     if (about) queryParams.about = about;
-    if (isPayable) queryParams.isPayable = isPayable === "false";
+    if (isPayable) queryParams.isPayable = isPayable === "true";
     if (price) queryParams.price = parseFloat(price);
 
     const eventData = await eventCollection.find(queryParams).toArray();

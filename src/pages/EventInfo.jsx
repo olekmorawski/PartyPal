@@ -61,8 +61,7 @@ const EventInfo = () => {
                   Time: {event.hour}:{event.minutes} {event.timeOfDay}
                 </h3>
                 <h3>About: {event.about}</h3>
-                <h3>Price: {event.isPayable ? event.price : "Free"}</h3>
-              </div>
+                <h3>Price: {!event.isPayable ? `$${event.price}` : "Free"}</h3>              </div>
             </div>
           </div>
         )

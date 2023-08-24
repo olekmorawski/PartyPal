@@ -58,6 +58,7 @@ const EventCreation = () => {
         setShowModal={() => {}}
         showModal={false}
         authToken={cookies.AuthToken}
+
         handleLogout={handleLogout}
       />
       <div className="event-creation">
