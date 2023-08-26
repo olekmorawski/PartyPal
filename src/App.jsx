@@ -4,7 +4,7 @@ import Onboarding from "./pages/Onboarding";
 import Events from "./pages/Events";
 import EventCreation from "./pages/Eventcreation";
 import EventInfo from "./pages/EventInfo";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const App = () => {
@@ -15,12 +15,12 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        {authToken && <Route path="/dashboard" element={<Dashboard />} />}
+        {authToken && <Route path="/dashboard" element={<Navigate to={`/dashboard/someDefaultEventId`} />} />}
+        {authToken && <Route path="/dashboard/:eventId" element={<Dashboard />} />}
+        {authToken && <Route path="/dashboard/" element={<Dashboard />} />}
         {authToken && <Route path="/onboarding" element={<Onboarding />} />}
         {authToken && <Route path="/events" element={<Events />} />}
-        {authToken && (
-          <Route path="/eventcreation" element={<EventCreation />} />
-        )}
+        {authToken && <Route path="/eventcreation" element={<EventCreation />} />}
         {authToken && <Route path="/eventinfo/:id" element={<EventInfo />} />}
       </Routes>
     </BrowserRouter>

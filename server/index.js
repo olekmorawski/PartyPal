@@ -128,18 +128,37 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.get("/interestingusers", async (req, res) => {
+app.get("/interestingusers/:eventId", async (req, res) => {
   const client = new MongoClient(uri);
-  const sex = req.query.sex;
+  const { sex } = req.query;
+  const { eventId } = req.params;
+
+  console.log("Event ID:", eventId);  // Debugging line
+
 
   try {
     await client.connect();
     const database = client.db("app-data");
-    const users = database.collection("users");
-    const query = { sex: { $eq: sex } };
-    const foundUsers = await users.find(query).toArray();
+    const usersCollection = database.collection("users");
+    const eventsCollection = database.collection("events");
 
+    const evebntQuery = { _id: new ObjectId(eventId) };
+    const eventObj = await eventsCollection.findOne(evebntQuery);
+
+    if (!eventObj) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+    const starredUsers = eventObj.starredUsers || [];
+
+    const userQuery = {
+      sex: { $eq: sex },
+      _id: { $in: starredUsers.map((id) => new ObjectId(id)) },
+    };
+    const foundUsers = await usersCollection.find(userQuery).toArray();
     res.json(foundUsers);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal server error" });
   } finally {
     await client.close();
   }

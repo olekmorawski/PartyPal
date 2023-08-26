@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 import ChatContainer from "../components/ChatContainer";
 import axios from "axios";
@@ -8,50 +9,61 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [interestingUsers, setInterestingUsers] = useState(null);
+  const [eventData, setEventData] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [lastDirection, setLastDirection] = useState();
 
+  const { eventId } = useParams();
   const userId = cookies.UserId;
+
+  const fetchEventData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/geteventdata/${eventId}`
+      );
+      setEventData(response.data);
+    } catch (error) {
+      console.error("Error fetching event data:", error);
+    }
+  };
+
+  const fetchInterestedUsers = async () => {
+    if (eventData && eventData.attendees && eventData.attendees.length > 0) {
+      try {
+        const response = await axios.get(`http://localhost:8000/users`, {
+          params: { userIds: JSON.stringify(eventData.attendees) },
+        });
+        setInterestingUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching interested users:", error);
+      }
+    }
+  };
 
   const getUser = async () => {
     try {
-      setIsLoading(true);
-      const response = await axios.get("http://localhost:8000/user", {
+      const response = await axios.get(`http://localhost:8000/user`, {
         params: { userId },
       });
       setUser(response.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
       setIsLoading(false);
     }
   };
 
-  const getinterestingUsers = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8000/interestingusers",
-        {
-          params: { sex: user?.sex_interest },
-        }
-      );
-      setInterestingUsers(response.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    fetchEventData();
+  }, [eventId]);
+
+  useEffect(() => {
+    fetchInterestedUsers();
+  }, [eventData]);
 
   useEffect(() => {
     getUser();
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      getinterestingUsers();
-    }
-  }, [user]);
+  }, [userId]);
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -77,11 +89,11 @@ const Dashboard = () => {
   };
 
   const matchedUserIds = user?.matches
-    .map(({ user_id }) => user_id)
-    .concat(userId);
+    ? user.matches.map(({ user_id }) => user_id).concat(userId)
+    : [];
 
-  const filterInterestingUsers = interestingUsers?.filter(
-    (interestingUser) => !matchedUserIds.includes(interestingUser.user_id)
+  const filterInterestingUsers = interestingUsers?.filter((interestingUser) =>
+    matchedUserIds ? !matchedUserIds.includes(interestingUser.user_id) : true
   );
 
   return (

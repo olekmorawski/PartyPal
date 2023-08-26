@@ -64,7 +64,7 @@ const EventCard = ({ title, url, eventId }) => {
       <div className="down">
         <button
           onClick={() => {
-            navigate("/dashboard");
+            navigate(`/dashboard/${eventId}`);
           }}
         >
           Find a pal!
