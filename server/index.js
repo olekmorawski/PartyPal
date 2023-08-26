@@ -133,8 +133,6 @@ app.get("/interestingusers/:eventId", async (req, res) => {
   const { sex } = req.query;
   const { eventId } = req.params;
 
-  console.log("Event ID:", eventId); // Debugging line
-
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -324,7 +322,6 @@ app.get("/geteventdata/", async (req, res) => {
 
     const eventData = await eventCollection.find(queryParams).toArray();
     res.send(eventData);
-    console.log(eventData);
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("An error occurred while fetching events.");
@@ -376,7 +373,6 @@ app.put("/addattendee", async (req, res) => {
     const result = await eventCollection.updateOne(query, updateDocument);
     res.send({ action: updateDocument.$push ? "added" : "removed" });
   } catch (err) {
-    console.log("Error adding or removing attendees: ", err);
     res.send(500).send("Internal Server Error");
   } finally {
     await client.close();
