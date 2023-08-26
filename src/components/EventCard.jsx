@@ -1,10 +1,30 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { useState } from "react";
+import axios from "axios";
 
 const EventCard = ({ title, url, eventId }) => {
   const [isStarSelected, setIsStarSelected] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const navigate = useNavigate();
+
+  const userId = cookies.UserId;
+
+  const isInterested = async () => {
+    try {
+      const response = await axios.put("http://localhost:8000/addattendee", {
+        userId,
+        eventId,
+      });
+      if (response.status === 200) {
+        setIsStarSelected(true);
+      }
+    } catch (err) {
+      console.error("Could not add attendee: ", err);
+    }
+  };
+
   return (
     <div
       className="event"
@@ -16,7 +36,11 @@ const EventCard = ({ title, url, eventId }) => {
     >
       <div className="up">
         <button
-          onClick={() => setIsStarSelected(!isStarSelected)}
+          onClick={async () => {
+            if (await isInterested()) {
+              setIsStarSelected(!isStarSelected);
+            }
+          }}
           className={`star_button ${isStarSelected ? "selected" : ""}`}
           style={{
             backgroundColor: "transparent",

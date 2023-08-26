@@ -334,4 +334,26 @@ app.get("/geteventdata/:id", async (req, res) => {
   }
 });
 
+app.put("/addattendee", async (req, res) => {
+  const client = new MongoClient(uri);
+  const { userId, eventId } = req.body;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const eventCollection = database.collection("events");
+
+    const query = { _id: new ObjectId(eventId) };
+    const updateDocument = {
+      $push: { attendees: userId },
+    };
+    const event = await eventCollection.updateOne(query, updateDocument);
+    res.send(event);
+  } catch (err) {
+    console.err("Error adding attendee:", err);
+  } finally {
+    await client.close();
+  }
+});
+
 app.listen(port, () => console.log("server on port " + port));
