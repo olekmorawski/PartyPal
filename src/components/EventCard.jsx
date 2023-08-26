@@ -18,10 +18,13 @@ const EventCard = ({ title, url, eventId }) => {
         eventId,
       });
       if (response.status === 200) {
-        setIsStarSelected(true);
+        const action = response.data.action;
+        setIsStarSelected(action === "added");
+        return true;
       }
     } catch (err) {
-      console.error("Could not add attendee: ", err);
+      console.error("Could not add or remove attendee: ", err);
+      return false;
     }
   };
 

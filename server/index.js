@@ -344,13 +344,22 @@ app.put("/addattendee", async (req, res) => {
     const eventCollection = database.collection("events");
 
     const query = { _id: new ObjectId(eventId) };
-    const updateDocument = {
-      $push: { attendees: userId },
-    };
-    const event = await eventCollection.updateOne(query, updateDocument);
-    res.send(event);
+    const event = await eventCollection.findOne(query);
+    let updateDocument = {};
+    if (event.attendees && event.attendees.includes(userId)) {
+      updateDocument = {
+        $pull: { attendees: userId },
+      };
+    } else {
+      updateDocument = {
+        $push: { attendees: userId },
+      };
+    }
+    const result = await eventCollection.updateOne(query, updateDocument);
+    res.send({ action: updateDocument.$push ? "added" : "removed" });
   } catch (err) {
-    console.err("Error adding attendee:", err);
+    console.log("Error adding or removing attendees: ", err);
+    res.send(500).send("Internal Server Error");
   } finally {
     await client.close();
   }
