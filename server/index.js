@@ -133,8 +133,7 @@ app.get("/interestingusers/:eventId", async (req, res) => {
   const { sex } = req.query;
   const { eventId } = req.params;
 
-  console.log("Event ID:", eventId);  // Debugging line
-
+  console.log("Event ID:", eventId); // Debugging line
 
   try {
     await client.connect();

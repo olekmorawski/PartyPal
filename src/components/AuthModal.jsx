@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
-
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
@@ -41,7 +40,6 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       if (success && isSignUp) navigate("/onboarding");
       if (success && !isSignUp) navigate("/events");
       window.location.reload();
-      
     } catch (err) {
       console.error(err);
     }

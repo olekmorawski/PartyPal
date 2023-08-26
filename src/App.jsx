@@ -15,12 +15,21 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        {authToken && <Route path="/dashboard" element={<Navigate to={`/dashboard/someDefaultEventId`} />} />}
-        {authToken && <Route path="/dashboard/:eventId" element={<Dashboard />} />}
+        {authToken && (
+          <Route
+            path="/dashboard"
+            element={<Navigate to={`/dashboard/someDefaultEventId`} />}
+          />
+        )}
+        {authToken && (
+          <Route path="/dashboard/:eventId" element={<Dashboard />} />
+        )}
         {authToken && <Route path="/dashboard/" element={<Dashboard />} />}
         {authToken && <Route path="/onboarding" element={<Onboarding />} />}
         {authToken && <Route path="/events" element={<Events />} />}
-        {authToken && <Route path="/eventcreation" element={<EventCreation />} />}
+        {authToken && (
+          <Route path="/eventcreation" element={<EventCreation />} />
+        )}
         {authToken && <Route path="/eventinfo/:id" element={<EventInfo />} />}
       </Routes>
     </BrowserRouter>

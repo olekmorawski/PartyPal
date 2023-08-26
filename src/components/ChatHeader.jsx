@@ -1,8 +1,6 @@
 import { useCookies } from "react-cookie";
 
-
 const ChatHeader = ({ user }) => {
-
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const handleLogout = () => {
@@ -19,7 +17,9 @@ const ChatHeader = ({ user }) => {
         </div>
         <h3>{user.first_name}</h3>
       </div>
-      <i className="log_out_icon" onClick={handleLogout}>←</i>
+      <i className="log_out_icon" onClick={handleLogout}>
+        ←
+      </i>
     </div>
   );
 };

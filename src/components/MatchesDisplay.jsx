@@ -28,7 +28,7 @@ const MatchesDispaly = ({ matches, setClickedUser }) => {
       {/* change this if you want this func to work */}
       {matchedProfiles?.map((match) => (
         <div
-          key={ match.user_id }
+          key={match.user_id}
           className="match_card"
           onClick={() => setClickedUser(match)}
         >
