@@ -6,6 +6,7 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [interestingUsers, setInterestingUsers] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [lastDirection, setLastDirection] = useState();
@@ -14,12 +15,15 @@ const Dashboard = () => {
 
   const getUser = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get("http://localhost:8000/user", {
         params: { userId },
       });
       setUser(response.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,6 +38,8 @@ const Dashboard = () => {
       setInterestingUsers(response.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,38 +86,43 @@ const Dashboard = () => {
 
   return (
     <>
-      {user && (
-        <div className="dashboard">
-          <ChatContainer user={user} />
-          <div className="swipe_container">
-            <div className="card_container">
-              {filterInterestingUsers?.map((interestingUser) => (
-                <TinderCard
-                  className="swipe"
-                  key={interestingUser.user_id}
-                  onSwipe={(dir) => swiped(dir, interestingUser.user_id)}
-                  onCardLeftScreen={() =>
-                    outOfFrame(interestingUser.first_name)
-                  }
-                >
-                  <div
-                    style={{
-                      backgroundImage: "url(" + interestingUser.url + ")",
-                    }}
-                    className="card"
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        user && (
+          <div className="dashboard">
+            <ChatContainer user={user} />
+            <div className="swipe_container">
+              <div className="card_container">
+                {filterInterestingUsers?.map((interestingUser) => (
+                  <TinderCard
+                    className="swipe"
+                    key={interestingUser.user_id}
+                    onSwipe={(dir) => swiped(dir, interestingUser.user_id)}
+                    onCardLeftScreen={() =>
+                      outOfFrame(interestingUser.first_name)
+                    }
                   >
-                    <h3>{interestingUser.first_name}</h3>
-                  </div>
-                </TinderCard>
-              ))}
-              <div className="swipe_info">
-                {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+                    <div
+                      style={{
+                        backgroundImage: "url(" + interestingUser.url + ")",
+                      }}
+                      className="card"
+                    >
+                      <h3>{interestingUser.first_name}</h3>
+                    </div>
+                  </TinderCard>
+                ))}
+                <div className="swipe_info">
+                  {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )
       )}
     </>
   );
 };
+
 export default Dashboard;
